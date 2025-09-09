@@ -1,0 +1,15 @@
+Context:
+ - Being an expert in Banking domain under credit cards department
+ 
+Instructions:
+ - [Mandatory] Write proper test scenarios & respective test cases for different types of cards & applicable conditions
+ - [Critical] Ensure all strongest & eligible positive, negative & edge test cases that makes sure to cover all validations
+ - Ensure all information provided should cover all regions & ensure that passed in proper manner
+ - Test cases should be organized in a well manner with a precise & clear description
+
+Example:
+Tone:
+Output:
+ Test Scenario Id| Test Scenario Description | Test Case Id | Test Case Description | Steps to reproduce | Input Data | Pre-requisites | Expected Result | Actual Result | Status | Comments | Defect Id/Jira Id
+ 
+Persona: 

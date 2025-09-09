@@ -1,0 +1,151 @@
+Context:
+ - You are an expert in Playwright automation and TypeScript development. 
+ - your task is to convert given Selenium Java code into Playwright TypeScript code.
+
+Instructions:
+ - Convert the given Java Selenium code into Playwright TypeScript.
+ - Maintain Page Object Model (POM) structure where applicable.
+ - Include proper exception/error handling using try/catch blocks and meaningful error messages.
+ - [CRITICAL] Correct imports for Playwright, relevant datatypes in typescript, Proper async/await usage, Clean test structure (using test.describe, test.beforeEach, test.afterEach, etc. from Playwright Test).
+ - [MANDATORY] The converted code should be structured in a way that it runs successfully using an online Playwright runner
+ - Add comments above each method/function to explain the functionality.
+
+Example Input:
+package week2.day1;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class CreateLead {
+	
+	public static void main(String[] args) {
+		
+		
+		// Step 0) Setup the chromedriver using webdrivermanager software
+		WebDriverManager.chromedriver().setup();
+		
+		// Step 1) Launch the chrome browser (Class Name -> ChromeDriver)
+		ChromeDriver driver = new ChromeDriver();
+		
+		// Step 2) Load the URL (http://leaftaps.com/opentaps/control/main) -> get
+		driver.get("http://leaftaps.com/opentaps");
+		
+		// Step 3) Maximize the chrome browser
+		driver.manage().window().maximize();
+		
+		// Step 4) Find the username and type the value (DemoSalesManager)
+		driver.findElement(By.id("username")).sendKeys("DemoSalesManager");
+		
+		// Step 5) Find the password and type the value (crmsfa)
+		driver.findElement(By.id("password")).sendKeys("crmsfa");	
+		
+		// Step 6) Find the login button and click
+		driver.findElement(By.className("decorativeSubmit")).click();
+		
+		// Step 7) Verify the title 
+		String title = driver.getTitle();
+		System.out.println(title);
+		
+		// Step 8) Click CRM/SFA link
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		
+		// Step 9) Click Create Lead Link
+		driver.findElement(By.linkText("Create Lead")).click();
+		
+		// Step 10) Find the company name and type the company name
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("TestLeaf");
+		
+		// Step 11) Find the first name and type your name
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Babu");
+
+		// Step 12) Find the last name and type your name
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("Manickam");
+		
+		// Step 12 b) Select the Source dropdown with one of the visible text
+		WebElement source = driver.findElement(By.id("createLeadForm_dataSourceId"));
+		Select dd1 = new Select(source);
+		dd1.selectByVisibleText("Employee");
+		
+		// Step 12 c) Select the marketing campaign with one of the value
+		WebElement marketing = driver.findElement(By.id("createLeadForm_marketingCampaignId"));
+		Select dd2 = new Select(marketing);
+		dd2.selectByValue("9001");
+
+		// Step 13) Click Create Lead Button
+		driver.findElement(By.name("submitButton")).click();
+		
+		// Step 14) Print the new title
+		title = driver.getTitle();
+		System.out.println(title);
+	}
+
+}
+
+
+Prompt 2
+=======
+
+Context:
+ - You are an expert in Playwright automation and TypeScript development. 
+ - your task is to convert given Selenium Java code into Playwright TypeScript code.
+
+Instructions:
+ - Convert the given Java Selenium code into Playwright TypeScript.
+ - Maintain Page Object Model (POM) structure where applicable.
+ - Include proper exception/error handling using try/catch blocks and meaningful error messages.
+ - [CRITICAL] Correct imports for Playwright, relevant datatypes in typescript, Proper async/await usage, Clean test structure (using test.describe, test.beforeEach, test.afterEach, etc. from Playwright Test), select class for dropdown fields.
+ - [MANDATORY] The converted code should be structured in a way that it runs successfully using an online Playwright runner
+ - Add comments above each method/function to explain the functionality.
+ - Make sure to have necessary timeout waits accordingly as per playwright
+
+Example Input:
+package week4.day1;
+
+import java.time.Duration;
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class LearnJQuery {
+
+	public static void main(String[] args) {
+		
+		// Steps to launch driver, app,maximize, set timeout 
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--disable-notifications");
+		ChromeDriver driver = new ChromeDriver(options);
+		driver.get("https://jqueryui.com/draggable/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		
+		// I found a frame, hence switch to it !!
+		driver.switchTo().frame(0); // using the index
+		//WebElement frameElement = driver.findElement(By.className("demo-frame"));
+		//driver.switchTo().frame(frameElement);
+		
+		// index (int), id or name (String), find the webelement for the frame 
+		
+		// find out if the element draggable exist !!
+		boolean displayed = driver.findElement(By.id("draggable")).isDisplayed();
+		System.out.println("Displayed :"+displayed);
+		
+		// Come out of the frame
+		driver.switchTo().defaultContent();
+		
+		// Will it work?
+		driver.findElement(By.linkText("Demos")).click();
+		
+
+	}
+}

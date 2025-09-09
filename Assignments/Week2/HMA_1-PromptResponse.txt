@@ -1,0 +1,279 @@
+Code 1
+-----------------
+// tests/createLead.spec.ts
+
+import { test, expect, Page } from '@playwright/test';
+
+/**
+ * LoginPage class (Page Object Model for Login Page)
+ */
+class LoginPage {
+  private page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  // Enter username
+  async enterUsername(username: string) {
+    await this.page.fill('#username', username);
+  }
+
+  // Enter password
+  async enterPassword(password: string) {
+    await this.page.fill('#password', password);
+  }
+
+  // Click login button
+  async clickLogin() {
+    await this.page.click('.decorativeSubmit');
+  }
+}
+
+/**
+ * HomePage class (Page Object Model for Home Page)
+ */
+class HomePage {
+  private page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  // Click CRM/SFA link
+  async clickCRMSFA() {
+    await this.page.click('text=CRM/SFA');
+  }
+}
+
+/**
+ * CreateLeadPage class (Page Object Model for Create Lead Page)
+ */
+class CreateLeadPage {
+  private page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  // Click Create Lead link
+  async clickCreateLeadLink() {
+    await this.page.click('text=Create Lead');
+  }
+
+  // Fill company name
+  async enterCompanyName(company: string) {
+    await this.page.fill('#createLeadForm_companyName', company);
+  }
+
+  // Fill first name
+  async enterFirstName(firstName: string) {
+    await this.page.fill('#createLeadForm_firstName', firstName);
+  }
+
+  // Fill last name
+  async enterLastName(lastName: string) {
+    await this.page.fill('#createLeadForm_lastName', lastName);
+  }
+
+  // Select Source dropdown by visible text
+  async selectSource(sourceText: string) {
+    await this.page.selectOption('#createLeadForm_dataSourceId', { label: sourceText });
+  }
+
+  // Select Marketing Campaign dropdown by value
+  async selectMarketingCampaign(value: string) {
+    await this.page.selectOption('#createLeadForm_marketingCampaignId', { value: value });
+  }
+
+  // Click submit button
+  async clickCreateLeadButton() {
+    await this.page.click('input[name="submitButton"]');
+  }
+}
+
+/**
+ * Test Suite for Create Lead functionality
+ */
+test.describe('Create Lead Test Suite', () => {
+  let loginPage: LoginPage;
+  let homePage: HomePage;
+  let createLeadPage: CreateLeadPage;
+
+  test.beforeEach(async ({ page }) => {
+    try {
+      // Navigate to application before each test
+      await page.goto('http://leaftaps.com/opentaps');
+
+      // Initialize POM classes
+      loginPage = new LoginPage(page);
+      homePage = new HomePage(page);
+      createLeadPage = new CreateLeadPage(page);
+    } catch (error) {
+      throw new Error(`❌ Error during test setup: ${error}`);
+    }
+  });
+
+  test('Verify Create Lead Functionality', async ({ page }) => {
+    try {
+      // Step 1: Login
+      await loginPage.enterUsername('DemoSalesManager');
+      await loginPage.enterPassword('crmsfa');
+      await loginPage.clickLogin();
+
+      // Step 2: Verify Home Page Title
+      await expect(page).toHaveTitle(/Leaftaps - TestLeaf Automation Platform/);
+
+      // Step 3: Navigate to CRM/SFA
+      await homePage.clickCRMSFA();
+
+      // Step 4: Navigate to Create Lead
+      await createLeadPage.clickCreateLeadLink();
+
+      // Step 5: Fill Lead Form
+      await createLeadPage.enterCompanyName('TestLeaf');
+      await createLeadPage.enterFirstName('Babu');
+      await createLeadPage.enterLastName('Manickam');
+      await createLeadPage.selectSource('Employee');
+      await createLeadPage.selectMarketingCampaign('9001');
+
+      // Step 6: Submit Lead
+      await createLeadPage.clickCreateLeadButton();
+
+      // Step 7: Verify Result Page Title
+      await expect(page).toHaveTitle(/View Lead/);
+
+    } catch (error) {
+      throw new Error(`❌ Test failed due to: ${error}`);
+    }
+  });
+});
+
+Result-
+--------
+Running 1 test using 1 worker
+
+✓ 1 example.spec.ts:115:7 › Create Lead Test Suite › Verify Create Lead Functionality (15.7s)
+
+1 passed (17.7s)
+Files
+trace.zip - Open in Trace Viewer
+
+Duration of 18872 ms with Playwright version 1.53.1.
+
+
+
+
+Code 2 -
+---------------
+// tests/learnJquery.spec.ts
+import { test, expect, Page } from '@playwright/test';
+
+/**
+ * Page Object Model for the jQuery UI Draggable page
+ */
+class JqueryPage {
+  private page: Page;
+
+  // Locators
+  private demoFrame = 'iframe.demo-frame';
+  private draggableElement = '#draggable';
+  private demosLink = 'a:has-text("Demos")';
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  /**
+   * Navigate to the jQuery draggable demo page
+   */
+  async goto() {
+    try {
+      await this.page.goto('https://jqueryui.com/draggable/', { timeout: 30000 });
+      await this.page.waitForLoadState('domcontentloaded');
+    } catch (error) {
+      throw new Error(`❌ Failed to navigate to jQuery draggable page: ${error}`);
+    }
+  }
+
+  /**
+   * Check if draggable element is displayed inside the frame
+   */
+  async isDraggableVisible(): Promise<boolean> {
+    try {
+      const frame = this.page.frameLocator(this.demoFrame);
+      await frame.locator(this.draggableElement).waitFor({ state: 'visible', timeout: 10000 });
+      return await frame.locator(this.draggableElement).isVisible();
+    } catch (error) {
+      throw new Error(`❌ Failed to check draggable visibility: ${error}`);
+    }
+  }
+
+  /**
+   * Click on the "Demos" link outside the frame
+   */
+  async clickDemosLink() {
+    try {
+      await this.page.locator(this.demosLink).click({ timeout: 10000 });
+      await this.page.waitForLoadState('domcontentloaded');
+    } catch (error) {
+      throw new Error(`❌ Failed to click Demos link: ${error}`);
+    }
+  }
+
+  /**
+   * Get the page title
+   */
+  async getPageTitle(): Promise<string> {
+    try {
+      return await this.page.title();
+    } catch (error) {
+      throw new Error(`❌ Failed to get page title: ${error}`);
+    }
+  }
+}
+
+/**
+ * Test suite for jQuery draggable demo
+ */
+test.describe('jQuery Draggable Demo Tests', () => {
+  let jqueryPage: JqueryPage;
+
+  test.beforeEach(async ({ page }) => {
+    jqueryPage = new JqueryPage(page);
+    await jqueryPage.goto();
+  });
+
+  test('Verify draggable element inside frame and navigate to Demos', async () => {
+    const isVisible = await jqueryPage.isDraggableVisible();
+    console.log('✅ Draggable element visible:', isVisible);
+    expect(isVisible).toBeTruthy();
+
+    // Go back to default content and click on Demos link
+    await jqueryPage.clickDemosLink();
+
+    const title = await jqueryPage.getPageTitle();
+    console.log('✅ Page Title after clicking Demos:', title);
+    expect(title).toContain('jQuery UI');
+  });
+
+  test.afterEach(async ({ page }) => {
+    await page.close();
+  });
+});
+
+
+
+Result -
+---------------
+Running 1 test using 1 worker
+
+✅ Draggable element visible: [33mtrue[39m
+✅ Page Title after clicking Demos: jQuery UI Demos | jQuery UI
+✓ 1 example.spec.ts:79:7 › jQuery Draggable Demo Tests › Verify draggable element inside frame and navigate to Demos (1.9s)
+
+1 passed (3.5s)
+Files
+trace.zip - Open in Trace Viewer
+
+Duration of 4602 ms with Playwright version 1.53.1.

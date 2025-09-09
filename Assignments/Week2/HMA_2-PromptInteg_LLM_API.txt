@@ -1,0 +1,20 @@
+API Request
+
+{
+    "model": "openai/gpt-oss-120b",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an expert in Playwright automation and TypeScript development."
+        },
+        {
+            "role": "user",
+            "content": "Context:\n - You are an expert in Playwright automation and TypeScript development.\n - your task is to convert given Selenium Java code into Playwright TypeScript code.\n\nInstructions:\n - Convert the given Java Selenium code into Playwright TypeScript.\n - Maintain Page Object Model (POM) structure where applicable.\n - Include proper exception/error handling using try/catch blocks and meaningful error messages.\n - [CRITICAL] Convert main method to relevant @Test methods to execute, Correct imports for Playwright, backticks, relevant datatypes in typescript, Proper async/await usage, Clean test structure (using test.describe, test.beforeEach, test.afterEach, etc. from Playwright Test) & use proper locators i.e., id, classname, xpath,etc.\n - [MANDATORY] The converted code should be structured in a way that it runs successfully using an online Playwright runner\n - Add comments above each method/function to explain the functionality.\n\nExample Input:\npackage week2.day1;\n\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebElement;\nimport org.openqa.selenium.chrome.ChromeDriver;\nimport org.openqa.selenium.support.ui.Select;\n\nimport io.github.bonigarcia.wdm.WebDriverManager;\n\npublic class CreateLead {\n\t\n\tpublic static void main(String[] args) {\n\t\t\n\t\t// Step 0) Setup the chromedriver using webdrivermanager software\n\t\tWebDriverManager.chromedriver().setup();\n\t\t\n\t\t// Step 1) Launch the chrome browser (Class Name -> ChromeDriver)\n\t\tChromeDriver driver = new ChromeDriver();\n\t\t\n\t\t// Step 2) Load the URL (http://leaftaps.com/opentaps/control/main) -> get\n\t\tdriver.get(\"http://leaftaps.com/opentaps\");\n\t\t\n\t\t// Step 3) Maximize the chrome browser\n\t\tdriver.manage().window().maximize();\n\t\t\n\t\t// Step 4) Find the username and type the value (DemoSalesManager)\n\t\tdriver.findElement(By.id(\"username\")).sendKeys(\"DemoSalesManager\");\n\t\t\n\t\t// Step 5) Find the password and type the value (crmsfa)\n\t\tdriver.findElement(By.id(\"password\")).sendKeys(\"crmsfa\");\t\n\t\t\n\t\t// Step 6) Find the login button and click\n\t\tdriver.findElement(By.className(\"decorativeSubmit\")).click();\n\t\t\n\t\t// Step 7) Verify the title \n\t\tString title = driver.getTitle();\n\t\tSystem.out.println(title);\n\t\t\n\t\t// Step 8) Click CRM/SFA link\n\t\tdriver.findElement(By.linkText(\"CRM/SFA\")).click();\n\t\t\n\t\t// Step 9) Click Create Lead Link\n\t\tdriver.findElement(By.linkText(\"Create Lead\")).click();\n\t\t\n\t\t// Step 10) Find the company name and type the company name\n\t\tdriver.findElement(By.id(\"createLeadForm_companyName\")).sendKeys(\"TestLeaf\");\n\t\t\n\t\t// Step 11) Find the first name and type your name\n\t\tdriver.findElement(By.id(\"createLeadForm_firstName\")).sendKeys(\"Babu\");\n\n\t\t// Step 12) Find the last name and type your name\n\t\tdriver.findElement(By.id(\"createLeadForm_lastName\")).sendKeys(\"Manickam\");\n\t\t\n\t\t// Step 12 b) Select the Source dropdown with one of the visible text\n\t\tWebElement source = driver.findElement(By.id(\"createLeadForm_dataSourceId\"));\n\t\tSelect dd1 = new Select(source);\n\t\tdd1.selectByVisibleText(\"Employee\");\n\t\t\n\t\t// Step 12 c) Select the marketing campaign with one of the value\n\t\tWebElement marketing = driver.findElement(By.id(\"createLeadForm_marketingCampaignId\"));\n\t\tSelect dd2 = new Select(marketing);\n\t\tdd2.selectByValue(\"9001\");\n\n\t\t// Step 13) Click Create Lead Button\n\t\tdriver.findElement(By.name(\"submitButton\")).click();\n\t\t\n\t\t// Step 14) Print the new title\n\t\ttitle = driver.getTitle();\n\t\tSystem.out.println(title);\n\t}\n} "
+        }
+        //,
+        //{
+          //  "role": "assistant",
+            //"content": "Extract only code that should be runnable through online portal"
+       // }
+    ]
+}

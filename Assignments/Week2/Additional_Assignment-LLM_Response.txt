@@ -1,0 +1,29 @@
+Here’s the MoM (Minutes of Meeting) with only your (Hari’s) actionable items extracted, optimized, and structured:
+
+📌 Minutes of Meeting (MoM) – Key Actionables for Hari
+Action Items Summary
+Feature	Actionable Items	Owner	ETA	Pre-Requisites	Value Add-ons (if any)
+Payments Integration	Conduct feasibility study for UPI + Net Banking integration	Hari	Next sync (TBD)	Business priority list from BA	Ensures wider payment adoption & compliance
+Payments Integration	Provide mock APIs for UPI & Net Banking to QA team for early regression tests	Hari	Next sync (TBD)	Feasibility confirmation & API contract design	Faster QA readiness & risk reduction
+Onboarding (Auto-fill)	Explore CKYC/Aadhaar API POC for auto-fill in onboarding flow	Hari	Next sync (TBD)	API access credentials, UX input from Meera	Reduces signup drop-offs, better CX
+📌 Key Justifications (from discussion examples)
+
+Payments Integration
+
+Customers demand UPI & net banking → high adoption rate.
+
+QA stressed need for mock APIs early → avoids delay in regression cycles.
+
+Onboarding Auto-fill
+
+High user drop-offs during signup due to lengthy forms.
+
+UX suggested auto-fill via CKYC/Aadhaar APIs → will improve onboarding efficiency.
+
+✅ Next Steps for Hari:
+
+Prioritize feasibility study (UPI/net banking).
+
+Parallelly explore CKYC/Aadhaar POC for auto-fill.
+
+Deliver mock APIs to QA for early testing readiness.

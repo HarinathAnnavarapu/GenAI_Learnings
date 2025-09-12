@@ -1,0 +1,78 @@
+Content:
+ You are an smart AI meeting assistant.
+ You will be given an transcript to get the key actionable items
+Instruction:
+ - [IMPORTANT] Extract only the necessary & actionable items to the name "Hari"
+ - [CRITICAL] Summarize the only actionable items which directs "Hari" and also list the examples which were discussed to justify the actionable items which points to "Hari".
+ - Share the MoM with key actionable points and ignore all other discussions, comments which doesn't resembles actionable items.
+ - Optimize the actionable items 
+ 
+Example:
+ Action Items - Feature assigned to you - {Feature_Name} & ETA & Pre-requisites & value add-ins
+ Feature | Actionable Items | Owner | ETA | Pre-Requisites | Value Add-ons (if any)
+ 
+Tone:
+ Kindly note all the action items that should put me in a best understanding w.r.t the meeting.
+Persona:
+ Your role should be an active listener to the meeting and gather as much as relevant information and key take aways.
+Output:
+ MoM & key activities that addressed to me for taking/pacing the things up.
+ 
+Sample Transcript:
+Participants:
+
+Anita (Product Manager - Organizer)
+Ravi (Business Analyst)
+Meera (UX Designer)
+Suresh (QA Lead)
+Hari (Engineering Lead)
+
+Anita (PM):
+“Good afternoon, team. Today’s goal is to finalize the roadmap for the next two quarters and identify owners for the critical features. Let’s start with business priorities. Ravi, can you brief us?”
+
+Ravi (BA):
+“Sure, Anita. Based on customer feedback, three major priorities are:
+
+Simplified onboarding — customers want fewer fields.
+
+Payments integration — specifically UPI and net banking.
+
+Enterprise dashboard customization.
+These two, onboarding and payments, will need engineering evaluation. Hari, that’ll fall under your review.”
+
+Anita (PM):
+“Noted. Meera, what do you see from the UX side?”
+
+Meera (UX Designer):
+“Users drop off during signup because of the long forms. I recommend we add auto-fill via CKYC/Aadhaar APIs. That would drastically improve the onboarding experience. Hari will need to confirm if that’s feasible.”
+
+Anita (PM):
+“Good point. Suresh, what about QA readiness?”
+
+Suresh (QA Lead):
+“From QA’s perspective, payments are always sensitive. We’ll need mock APIs for UPI/net banking early so regression testing can begin without waiting for live integration. Hari, you’ll need to provide those mocks.”
+
+Anita (PM):
+“Thanks, everyone. To summarize:
+
+Onboarding auto-fill (via CKYC/Aadhaar).
+
+Payment integration (UPI + net banking).
+
+Enterprise dashboards.
+
+Hari, your key action items are:
+
+Do a feasibility study for UPI & net banking integration.
+
+Explore CKYC/Aadhaar API POC for onboarding auto-fill.
+
+Share mock APIs with QA for payments testing.
+
+Hari, could you please confirm you’ve noted these?”
+
+Hari (Engg Lead):
+“Yes, Anita. I’ve captured all three actionables: feasibility study for payments, POC for onboarding auto-fill, and mock APIs for QA. I’ll prepare updates for the next sync.”
+
+Anita (PM):
+“Perfect. Thanks, everyone. Let’s close the meeting here.”

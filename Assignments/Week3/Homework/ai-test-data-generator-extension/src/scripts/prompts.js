@@ -144,12 +144,25 @@ PLAYWRIGHT_TYPESCRIPT_PAGE_ONLY: `
   TESTDATA_JSON_MULTIPLE: `
     Instructions:
     - Generate ONLY test data in JSON format (no code, no explanations).
-    - Generate test data based on the {{recordCount}} variable.
-    - Use Faker library for generating realistic positive data.
-    - Include multiple datasets (Positive & Negative) for each field.
-    - Each dataset must include a "Category" key with values like "Positive" or "Negative".
-    - Maintain strict JSON structure with arrays of datasets.
-    - Ensure variety and coverage of edge cases.
+    - [CRITICAL] Produce three grouped arrays at the top level: "positive", "negative", and "edgeCases".
+    - [CRITICAL] Each array ("positive", "negative", "edgeCases") MUST contain **exactly {{recordCount}} objects**. Do not generate more or fewer than {{recordCount}} objects per array.
+    - For each generated object:
+      - Include all fields discovered from the DOM (use the keys derived above).
+      - Include a "category" key with value exactly one of: "Positive", "Negative", "Edge Cases".
+    - Use Faker library for generating realistic and varied data for each field.
+    - Each dataset must contain field values according to its category behavior.
+    - Ensure variety and coverage of validations for each category.
+    - Maintain strict JSON structure with objects grouped under their respective category.
+    - [IMPORTANT] If you generate more or fewer than {{recordCount}} objects in any array, your answer will be rejected.
+    - Output ONLY a single JSON object, inside a \`\`\`json\`\`\` block, with this structure:
+      \`\`\`json
+      {
+        "positive": [ /* {{recordCount}} objects */ ],
+        "negative": [ /* {{recordCount}} objects */ ],
+        "edgeCases": [ /* {{recordCount}} objects */ ]
+      }
+      \`\`\`
+
 
     Context:
     DOM:
@@ -157,18 +170,29 @@ PLAYWRIGHT_TYPESCRIPT_PAGE_ONLY: `
     \${domContent}
     \`\`\`
 
-    Example:
-    \`\`\`Readable format
-    |fieldName | fieldName2 | fieldName3 |
-    |----------|------------|------------|
-    | "username1"| "password12"    | "phone"    |
+    Example (Readable format):
     \`\`\`
-    
+    {
+      "positive": [
+        { "username": "user01", "password": "Pass@1234", "phone": "+1-202-555-0189" },
+        { "username": "testUser", "password": "Valid@456", "phone": "+91-9876543210" }
+      ],
+      "negative": [
+        { "username": "user@@@", "password": "123", "phone": "abc" },
+        { "username": "", "password": "short", "phone": "999" }
+      ],
+      "edgeCases": [
+        { "username": " ", "password": "P@ssword!", "phone": null },
+        { "username": "averylongusername_exceeding_limit", "password": "Edge@999", "phone": "+44-0000000000" }
+      ]
+    }
+    \`\`\`
+
     Persona:
-    - Audience: QA/Automation engineers needing bulk test data for data-driven testing (positive & negative).
+    - Audience: QA/Automation engineers needing grouped, structured test data for data-driven testing across Positive, Negative, and Edge Cases.
 
     Output Format:
-    - A single JSON block inside a \`\`\`json\`\`\` block.
+    - A single JSON block inside a \`\`\`json\`\`\` block with each category of strictly based on total of {{recordCount}} variable value.
 
     Tone:
     - Structured, maintainable, enterprise-ready.
